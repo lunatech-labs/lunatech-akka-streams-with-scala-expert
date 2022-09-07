@@ -3,6 +3,8 @@ package org.applied.akkastreams.echo
 import akka.NotUsed
 import akka.stream.scaladsl.Flow
 
+import scala.collection.mutable.{Queue => MutableQueue}
+
 object FilterElements {
 
   def delayLineFlow(delay: Int, scaleFactor: Double): Flow[(Double, Double), (Double, Double), NotUsed] =
@@ -22,7 +24,7 @@ object FilterElements {
   def delayLineFlowAlt(delay: Int, scaleFactor: Double): Flow[(Double, Double), (Double, Double), NotUsed] =
     Flow[(Double, Double)].statefulMapConcat { () =>
       // mutable state needs to be kept inside the stage
-      val eq = MQueue(List.fill(delay)(0.0d): _*)
+      val eq = MutableQueue(List.fill(delay)(0.0d): _*)
 
       { case (sample, ff) =>
         eq.enqueue(sample)

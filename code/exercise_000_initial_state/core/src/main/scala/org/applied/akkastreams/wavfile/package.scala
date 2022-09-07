@@ -1,30 +1,14 @@
 package org.applied.akkastreams
 
-import java.io.File
-
 import akka.stream.scaladsl.{Sink, Source}
 import uk.co.labbookpages.WavFile
 
-package object echo {
-  type MQueue[A] = scala.collection.mutable.Queue[A]
-  val MQueue = scala.collection.mutable.Queue
+import java.io.File
 
-  type Iterable[+A] = scala.collection.immutable.Iterable[A]
-  val Iterable = scala.collection.immutable.Iterable
+package object wavfile {
 
   implicit class FilterStageOps(val s: (Int, Double)) extends AnyVal {
     def toFilterStage: FilterStage = FilterStage(s._1, s._2)
-  }
-
-  object WavWriter {
-    def apply(wavFile: WavFile) = {
-      val buf = new Array[Double](1)
-      Sink.foreach[Double] { s =>
-        buf(0) = s
-        println(buf.toVector)
-        //wavFile.writeFrames(buf, 1)
-      }
-    }
   }
 
   object WaveOutputFile {
@@ -44,7 +28,7 @@ package object echo {
       val wavFile = WavFile.openWavFile(new File(wavFileName))
       val numChannels = wavFile.getNumChannels
       val numFrames = wavFile.getNumFrames
-      val validBits= wavFile.getValidBits
+      val validBits = wavFile.getValidBits
       val sampleRate = wavFile.getSampleRate
       println(s"Number of channels = $numChannels, number of frames: $numFrames, sampleRate: $sampleRate")
       val buffer = new Array[Double](256 * numChannels)
@@ -60,6 +44,7 @@ package object echo {
             buf ++ buffer.toVector.take(n)
         }
       }
+
       val source = Source(rf(wavFile))
       wavFile.close()
       println(s"Source audio from $wavFileName")

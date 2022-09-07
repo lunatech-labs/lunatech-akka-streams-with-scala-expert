@@ -1,4 +1,4 @@
-package org.applied.akkastreams.echo
+package org.applied.akkastreams.wavfile
 
 import akka.stream.scaladsl.Source
 import akka.NotUsed

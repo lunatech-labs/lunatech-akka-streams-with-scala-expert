@@ -1,25 +1,29 @@
-implement_a_delay_element
+# Implement a delay element
 
-## This phase implements a core streams element - the DelayLine
+## Implementing the core streams element - the DelayLine
 
-A `DelayLine` is a `Flow` element that has two inputs `in`0 and
-`in`1 and two outputs `out`0 and `out`1. The element types are
-all `Double`s.
+If we implement the `DelayLine` building block in a literal manner,
+it would be an Akka Stream `Junction` with two inputs and two outputs.
 
-Output `out`0 is input stream `in`0 delayed by a specified number
-of samples (`delay`).
-Output `out`1 is the sum of `in`1 and `out`0 multiplied by a
-specified value (`scaleFactor`).
+The first output is a stream of the first input delayed by a specified
+number of samples (`delay`). The second output is the sum of the second
+input and the first output multiplied by a specified constant (`scaleFactor`).
 
-An FIR filter can be constructed trivially by chaining `DelayLine`s
+An FIR filter can be constructed trivially by chaining `DelayLine`s.
 
-In principle, we could implement the DelayLine as a so-called
-Akka Streams junction, but instead we will use a linear `Flow`
+Instead of implementing the DelayLine as an
+Akka Streams junction, we will instead use a linear `Flow`
 component which takes a tuple of `Double`s as input and a tuple
 of `Double`s as output.
 
-Your task is to implement the `DelayLine` `Flow` component using
+Your task is to implement the `DelayLine` Flow component using
 `Flow.statefulMapConcat`.
+
+> Note: as the name of `statefulMapConcat` implies, a flow stage
+> based on it can keep track of a state that can be updated
+> when processing stream elements.
+
+Question: what data should be kept in the `DelayLine` flow?
 
 ## Step by step implementation
 
@@ -30,7 +34,7 @@ Your task is to implement the `DelayLine` `Flow` component using
   `DelayLineFlow` with an `apply` method that takes two parameters:
 
   - `delay` of type `Int`
-  - `scalaFactor` of type `Double`
+  - `scaleFactor` of type `Double`
 
   The `apply` method should return a `Flow[(Double, Double), (Double, Double), NotUsed]`
 
@@ -59,4 +63,8 @@ Your task is to implement the `DelayLine` `Flow` component using
 
 Note: The state of the `statefulMapConcat` flow component is
       kept in the body of the function.
+
+- Run the provided test by executing `test` in sbt.
+
+- One the tests pass, move to the next exercise by running `cmtc next-exercise <exercise-folder>`.
 
