@@ -1,7 +1,7 @@
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
 Global / onLoad := {
-    (Global / onLoad).value andThen (state => "project exercises" :: state)
+    (Global / onLoad).value andThen (state => "project exercise" :: state)
   }
 
 lazy val `advanced-akka-streams` = (project in file("."))
