@@ -21,7 +21,7 @@ class FIRElementsSpec extends AnyFreeSpec with AkkaSpec with FIRTestData {
       val expectedResponse =
         (1.0d +: Vector.fill[Double](delay1 - 1)(0.0d)) ++
         (-0.3d +: Vector.fill[Double](delay2 - 1)(0.0d)) ++
-        (-0.24d +: Vector.fill[Double](delay3 - 1)(0.0d)) ++
+        (-0.2d +: Vector.fill[Double](delay3 - 1)(0.0d)) ++
         (-0.35d +: Vector.fill[Double](10_000 - delay1 - delay2 - delay3)(0.0d))
 
 
