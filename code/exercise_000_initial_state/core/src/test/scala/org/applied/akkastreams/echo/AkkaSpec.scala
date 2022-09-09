@@ -1,8 +1,8 @@
 package org.applied.akkastreams.echo
 
 import akka.actor.{ActorRefFactory, ActorSystem}
-import org.scalatest.{BeforeAndAfterAll, Suite}
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.{BeforeAndAfterAll, Suite}
 
 import scala.concurrent.duration._
 

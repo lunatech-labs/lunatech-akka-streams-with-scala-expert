@@ -1,11 +1,11 @@
 package org.applied.akkastreams.echo
 
-import akka.NotUsed
-import akka.stream.scaladsl.Flow
-
 import akka.actor.ActorSystem
-
+import akka.stream.scaladsl.Flow
+import akka.{Done, NotUsed}
 import org.applied.akkastreams.wavfile._
+
+import scala.concurrent.Future
 
 object FIR {
 
@@ -31,7 +31,7 @@ object FIR {
     import actorSystem.dispatcher
 
     // Run the flow and sink it to a wav file
-    val runFlow =
+    val runFlow: Future[Done] =
       soundSource
         .via(firFilter)
         .grouped(1000)

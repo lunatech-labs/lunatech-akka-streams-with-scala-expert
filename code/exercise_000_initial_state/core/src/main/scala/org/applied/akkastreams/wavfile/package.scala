@@ -1,6 +1,6 @@
 package org.applied.akkastreams
 
-import akka.stream.scaladsl.{Sink, Source}
+import akka.stream.scaladsl.Source
 import uk.co.labbookpages.WavFile
 
 import java.io.File

@@ -1,7 +1,6 @@
 package org.applied.akkastreams.echo
 
 import akka.stream.scaladsl.{Sink, Source}
-import org.applied.akkastreams.echo.FilterElements
 import org.applied.akkastreams.wavfile.AkkaSpec
 import org.scalatest.freespec._
 
